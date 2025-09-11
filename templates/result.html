@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heart Health Predictor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #e6f7ff 0%, #f5e6ff 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(to right, #4e54c8, #8f94fb);
+        color: white;
+        padding: 30px;
+        text-align: center;
+        position: relative;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .heart-icon {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 2.5rem;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .content {
+        padding: 30px;
+      }
+
+      .prediction-card {
+        background: linear-gradient(to right, #43cea2, #185a9d);
+        color: white;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .prediction-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .prediction-result {
+        font-size: 2.2rem;
+        font-weight: bold;
+        margin: 15px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .info-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .info-card {
+        flex: 1;
+        min-width: 230px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid #4e54c8;
+      }
+
+      .info-card h4 {
+        color: #4e54c8;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+      }
+
+      .info-card p {
+        color: #666;
+        line-height: 1.6;
+      }
+
+      .tips-section {
+        background: #eef7ff;
+        border-radius: 15px;
+        padding: 25px;
+      }
+
+      .tips-section h3 {
+        color: #43cea2;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 1.5rem;
+      }
+
+      .tip {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .tip-icon {
+        background: #4e54c8;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: #888;
+        font-size: 0.9rem;
+        border-top: 1px solid #eee;
+      }
+
+      @media (max-width: 600px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .prediction-result {
+          font-size: 1.8rem;
+        }
+
+        .info-card {
+          min-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>❤️ Heart Health Assessment</h1>
+        <p>Your cardiac health prediction results</p>
+        <div class="heart-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="prediction-card">
+          <h3>Prediction Result</h3>
+          <div class="prediction-result">
+            <!-- This will be replaced with your actual prediction variable -->
+            {{ prediction }}
+          </div>
+          <p>Based on the input data provided</p>
+        </div>
+
+        <div class="info-section">
+          <div class="info-card">
+            <h4>What This Means</h4>
+            <p>
+              This prediction indicates the likelihood of heart disease based on
+              medical data analysis. Always consult with healthcare
+              professionals for accurate diagnosis.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h4>Next Steps</h4>
+            <p>
+              Regardless of the prediction, maintain regular check-ups with your
+              doctor and follow a heart-healthy lifestyle with proper diet and
+              exercise.
+            </p>
+          </div>
+        </div>
+
+        <div class="tips-section">
+          <h3>Heart Health Tips</h3>
+
+          <div class="tip">
+            <div class="tip-icon">
+              <i class="fas fa-apple-alt"></i>
+            </div>
+            <p>
+              Eat a balanced diet rich in fruits, vegetables, and whole grains
+            </p>
+          </div>
+
+          <div class="tip">
+            <div class="tip-icon">
+              <i class="fas fa-running"></i>
+            </div>
+            <p>Exercise regularly - aim for at least 30 minutes most days</p>
+          </div>
+
+          <div class="tip">
+            <div class="tip-icon">
+              <i class="fas fa-ban"></i>
+            </div>
+            <p>Avoid smoking and limit alcohol consumption</p>
+          </div>
+
+          <div class="tip">
+            <div class="tip-icon">
+              <i class="fas fa-weight"></i>
+            </div>
+            <p>Maintain a healthy weight for your body type</p>
+          </div>
+
+          <div class="tip">
+            <div class="tip-icon">
+              <i class="fas fa-heartbeat"></i>
+            </div>
+            <p>
+              Manage stress through meditation, hobbies, or relaxation
+              techniques
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>
+          Created By Soumya Mandal | For educational purposes only | Consult a
+          doctor for medical advice
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // Simple animation for the prediction result
+      document.addEventListener("DOMContentLoaded", function () {
+        const predictionElement = document.querySelector(".prediction-result");
+
+        // Simulate loading animation (can be removed if not needed)
+        predictionElement.style.opacity = "0";
+
+        setTimeout(() => {
+          predictionElement.style.transition = "opacity 1s ease-in-out";
+          predictionElement.style.opacity = "1";
+        }, 500);
+      });
+    </script>
+  </body>
+</html>

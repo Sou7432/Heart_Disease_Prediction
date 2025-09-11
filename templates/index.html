@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Data Form</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        color: #333;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        animation: fadeIn 1s ease-out;
+      }
+
+      .header {
+        background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+        color: white;
+        padding: 25px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 28px;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .header p {
+        font-size: 16px;
+        opacity: 0.9;
+      }
+
+      .form-container {
+        padding: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2575fc;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      input {
+        width: 100%;
+        padding: 15px 15px 15px 45px;
+        border: 2px solid #e1e5ee;
+        border-radius: 12px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        outline: none;
+      }
+
+      input:focus {
+        border-color: #2575fc;
+        box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.2);
+      }
+
+      .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 40px;
+        color: #6a11cb;
+        font-size: 18px;
+      }
+
+      .input-info {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+        padding-left: 5px;
+      }
+
+      .row {
+        display: flex;
+        gap: 15px;
+      }
+
+      .row .form-group {
+        flex: 1;
+      }
+
+      button {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 75, 43, 0.3);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .privacy-note {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 13px;
+        color: #666;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .row {
+          flex-direction: column;
+          gap: 0;
+        }
+
+        .header h1 {
+          font-size: 24px;
+        }
+
+        input {
+          padding: 12px 12px 12px 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1><i class="fas fa-heartbeat"></i> Health Data Form</h1>
+        <p>Please provide accurate information for better health assessment</p>
+      </div>
+
+      <div class="form-container">
+        <form action="/process" method="post">
+          <div class="row">
+            <div class="form-group">
+              <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
+              <div class="input-icon"><i class="fas fa-user"></i></div>
+              <input
+                type="number"
+                id="age"
+                name="age"
+                placeholder="Your age"
+                min="1"
+                max="120"
+                required
+              />
+              <div class="input-info">Must be between 1 and 120</div>
+            </div>
+
+            <div class="form-group">
+              <label for="sex"><i class="fas fa-venus-mars"></i> Sex</label>
+              <div class="input-icon"><i class="fas fa-user"></i></div>
+              <input
+                type="number"
+                id="sex"
+                name="sex"
+                placeholder="1 = Male, 0 = Female"
+                min="0"
+                max="1"
+                required
+              />
+              <div class="input-info">0 for Female, 1 for Male</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="chestPain"
+              ><i class="fas fa-stethoscope"></i> Chest Pain Type</label
+            >
+            <div class="input-icon"><i class="fas fa-heart"></i></div>
+            <input
+              type="number"
+              id="chestPain"
+              name="Chest pain type"
+              placeholder="0-5"
+              min="0"
+              max="5"
+              required
+            />
+            <div class="input-info">Value between 0 and 5</div>
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+              <label for="bp"
+                ><i class="fas fa-tachometer-alt"></i> Blood Pressure</label
+              >
+              <div class="input-icon"><i class="fas fa-heartbeat"></i></div>
+              <input
+                type="number"
+                id="bp"
+                name="BP"
+                placeholder="Systolic BP"
+                min="60"
+                max="200"
+                required
+              />
+              <div class="input-info">Systolic measurement</div>
+            </div>
+
+            <div class="form-group">
+              <label for="cholesterol"
+                ><i class="fas fa-vial"></i> Cholesterol</label
+              >
+              <div class="input-icon"><i class="fas fa-flask"></i></div>
+              <input
+                type="number"
+                id="cholesterol"
+                name="Cholesterol"
+                placeholder="mg/dL"
+                min="100"
+                max="400"
+                required
+              />
+              <div class="input-info">mg/dL value</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fbs"><i class="fas fa-syringe"></i> FBS over 120</label>
+            <div class="input-icon"><i class="fas fa-blood-test"></i></div>
+            <input
+              type="number"
+              id="fbs"
+              name="FBS over 120"
+              placeholder="1 = true, 0 = false"
+              min="0"
+              max="1"
+              required
+            />
+            <div class="input-info">1 for true, 0 for false</div>
+          </div>
+
+          <div class="form-group">
+            <label for="ekg"
+              ><i class="fas fa-wave-square"></i> EKG Results</label
+            >
+            <div class="input-icon"><i class="fas fa-heartbeat"></i></div>
+            <input
+              type="number"
+              id="ekg"
+              name="EKG results"
+              placeholder="0-2"
+              min="0"
+              max="2"
+              required
+            />
+            <div class="input-info">Value between 0 and 2</div>
+          </div>
+
+          <div class="form-group">
+            <label for="maxHR"><i class="fas fa-running"></i> Max HR</label>
+            <div class="input-icon"><i class="fas fa-tachometer-alt"></i></div>
+            <input
+              type="number"
+              id="maxHR"
+              name="Max HR"
+              placeholder="Maximum heart rate"
+              min="60"
+              max="220"
+              required
+            />
+            <div class="input-info">Beats per minute</div>
+          </div>
+
+          <div class="form-group">
+            <label for="exerciseAngina"
+              ><i class="fas fa-lungs"></i> Exercise Angina</label
+            >
+            <div class="input-icon"><i class="fas fa-wind"></i></div>
+            <input
+              type="number"
+              id="exerciseAngina"
+              name="Exercise angina"
+              placeholder="1 = yes, 0 = no"
+              min="0"
+              max="1"
+              required
+            />
+            <div class="input-info">1 for yes, 0 for no</div>
+          </div>
+
+          <div class="form-group">
+            <label for="stDepression"
+              ><i class="fas fa-chart-line"></i> ST Depression</label
+            >
+            <div class="input-icon"><i class="fas fa-chart-area"></i></div>
+            <input
+              type="number"
+              id="stDepression"
+              name="ST depression"
+              placeholder="ST depression value"
+              step="0.1"
+              min="0"
+              max="10"
+              required
+            />
+            <div class="input-info">Numeric value with decimal points</div>
+          </div>
+
+          <div class="form-group">
+            <label for="slope"
+              ><i class="fas fa-chart-line"></i> Slope of ST</label
+            >
+            <div class="input-icon"><i class="fas fa-line-chart"></i></div>
+            <input
+              type="number"
+              id="slope"
+              name="Slope of ST"
+              placeholder="0-2"
+              min="0"
+              max="2"
+              required
+            />
+            <div class="input-info">Value between 0 and 2</div>
+          </div>
+
+          <div class="form-group">
+            <label for="vessels"
+              ><i class="fas fa-eye"></i> Number of Vessels Fluro</label
+            >
+            <div class="input-icon"><i class="fas fa-search"></i></div>
+            <input
+              type="number"
+              id="vessels"
+              name="Number of vessels fluro"
+              placeholder="0-3"
+              min="0"
+              max="3"
+              required
+            />
+            <div class="input-info">Value between 0 and 3</div>
+          </div>
+
+          <div class="form-group">
+            <label for="thallium"><i class="fas fa-atom"></i> Thallium</label>
+            <div class="input-icon"><i class="fas fa-radiation"></i></div>
+            <input
+              type="number"
+              id="thallium"
+              name="Thallium"
+              placeholder="1, 2, or 3"
+              min="1"
+              max="3"
+              required
+            />
+            <div class="input-info">Value of 1, 2, or 3</div>
+          </div>
+
+          <button type="submit">
+            <i class="fas fa-paper-plane"></i> Submit Health Data
+          </button>
+
+          <div class="privacy-note">
+            <i class="fas fa-shield-alt"></i> Your health data is encrypted and
+            secure
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Add input validation and visual feedback
+      document.querySelectorAll("input").forEach((input) => {
+        input.addEventListener("blur", function () {
+          if (this.checkValidity()) {
+            this.style.borderColor = "#4caf50";
+          } else {
+            this.style.borderColor = "#ff4b2b";
+          }
+        });
+
+        input.addEventListener("input", function () {
+          this.style.borderColor = "#2575fc";
+        });
+      });
+    </script>
+  </body>
+</html>
