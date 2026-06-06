@@ -1,21 +1,35 @@
 from flask import Flask, request, render_template
 import pickle
-import numpy as np
 import pandas as pd
 import os
 
-app = Flask(__name__, template_folder='../templates')
+# Flask app
+app = Flask(__name__)
 
-# Load model safely (absolute path for Vercel)
-model_path = os.path.join(os.path.dirname(__file__), '..', 'soumya.pkl')
-with open(model_path, 'rb') as model_file:
+# Absolute path of current directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Load model
+model_path = os.path.join(BASE_DIR, "soumya.pkl")
+
+with open(model_path, "rb") as model_file:
     ml_model = pickle.load(model_file)
 
-# Feature names (IMPORTANT: must match training time)
+# Feature names (must match training data)
 feature_names = [
-    'age', 'sex', 'Chest pain type', 'BP', 'Cholesterol',
-    'FBS over 120', 'EKG results', 'Max HR', 'Exercise angina',
-    'ST depression', 'Slope of ST', 'Number of vessels fluro', 'Thallium'
+    'age',
+    'sex',
+    'Chest pain type',
+    'BP',
+    'Cholesterol',
+    'FBS over 120',
+    'EKG results',
+    'Max HR',
+    'Exercise angina',
+    'ST depression',
+    'Slope of ST',
+    'Number of vessels fluro',
+    'Thallium'
 ]
 
 @app.route('/')
@@ -41,18 +55,23 @@ def process():
             float(request.form['Thallium'])
         ]
 
-        # Fix feature name warning using DataFrame
         input_df = pd.DataFrame([features], columns=feature_names)
 
-        result = ml_model.predict(input_df)[0]
-        heart_disease = 'Yes' if result == 1 else 'No'
+        prediction = ml_model.predict(input_df)[0]
 
-        return render_template('result.html', prediction=heart_disease)
+        heart_disease = "Yes" if prediction == 1 else "No"
+
+        return render_template(
+            'result.html',
+            prediction=heart_disease
+        )
 
     except Exception as e:
-        return f"Error: {str(e)}"
+        return render_template(
+            'result.html',
+            prediction=f"Error: {str(e)}"
+        )
 
-
-# ✅ REQUIRED for Vercel serverless
-def handler(request):
-    return app(request.environ, lambda *args: None)
+# For local testing
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=False)
